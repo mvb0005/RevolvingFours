@@ -245,8 +245,177 @@ public class GameBoardView extends View {
             animator.setDuration(lowest * (2 * CIRCLE_RADIUS) + CIRCLE_RADIUS);
             animator.start();
             board[col][lowest] = c;
+            Log.d("Test", String.valueOf(getWinner()));
             return true;
         }
+
+        public int getWinner(){
+            int[] total = new int[2];
+            int[] temp = checkHorizontal();
+            total[0] += temp[0];
+            total[1] += temp[1];
+            temp = checkVertical();
+            total[0] += temp[0];
+            total[1] += temp[1];
+            temp = checkDownwardDiag();
+            total[0] += temp[0];
+            total[1] += temp[1];
+            temp = checkUpwardDiag();
+            total[0] += temp[0];
+            total[1] += temp[1];
+            return total[0] + total[1];
+        }
+
+        private int[] checkUpwardDiag() {
+            int[] total = new int[2];
+            int check = 4;
+            for (int x = 0; x <= 3; x++) {
+                int diagTotal = 0;
+                for (int y = rows - 1; y > rows - check; y--){
+                    int sum = 0;
+                    for (int yrange = 0; yrange < 4; yrange++){
+                        if (board[x + (rows - 1 - y) + yrange][y - yrange] != null){
+                            sum += board[x + (rows - 1 - y) + yrange][y - yrange].getPlayer();
+                        }
+                    }
+                    if (Math.abs(sum) == 4){
+                        diagTotal = sum < 0 ? -1 : 1;
+                    }
+                }
+                check--;
+                if (diagTotal > 0){
+                    total[0]++;
+                }
+                if (diagTotal < 0) {
+                    total[1]--;
+                }
+            }
+            check = 3;
+            for (int y = rows - 1; y >= 3; y--) {
+                int diagTotal = 0;
+                for (int x = 0; x < check; x++){
+                    int sum = 0;
+                    for (int xrange = 0; xrange < 4; xrange++){
+                        if (board[x + xrange][y - x - xrange] != null){
+                            sum += board[x + xrange][y - x - xrange].getPlayer();
+                        }
+                    }
+                    if (Math.abs(sum) == 4){
+                        diagTotal = sum < 0 ? -1 : 1;
+                    }
+                }
+                check--;
+                if (diagTotal > 0){
+                    total[0]++;
+                }
+                if (diagTotal < 0) {
+                    total[1]--;
+                }
+            }
+            return total;
+        }
+
+        private int[] checkDownwardDiag() {
+            int[] total = new int[2];
+            int check = 4;
+            for (int x = 0; x <= 3; x++) {
+                int diagTotal = 0;
+                for (int y = 0; y < check; y++){
+                    int sum = 0;
+                    for (int yrange = 0; yrange < 4; yrange++){
+                        if (board[x + y + yrange][y + yrange] != null){
+                            sum += board[x + y + yrange][y + yrange].getPlayer();
+                        }
+                    }
+                    if (Math.abs(sum) == 4){
+                        diagTotal = sum < 0 ? -1 : 1;
+                    }
+                }
+                check--;
+                if (diagTotal > 0){
+                    total[0]++;
+                }
+                if (diagTotal < 0) {
+                    total[1]--;
+                }
+            }
+            check = 3;
+            for (int y = 1; y <= 3; y++) {
+                int diagTotal = 0;
+                for (int x = 0; x < check; x++){
+                    int sum = 0;
+                    for (int xrange = 0; xrange < 4; xrange++){
+                        if (board[x + xrange][y + x + xrange] != null){
+                            sum += board[x + xrange][y + x + xrange].getPlayer();
+                        }
+                    }
+                    if (Math.abs(sum) == 4){
+                        diagTotal = sum < 0 ? -1 : 1;
+                    }
+                }
+                check--;
+                if (diagTotal > 0){
+                    total[0]++;
+                }
+                if (diagTotal < 0) {
+                    total[1]--;
+                }
+            }
+            return total;
+        }
+
+        private int[] checkVertical() {
+            int[] total = new int[2];
+            for (int col = 0; col < cols; col++) {
+                int colTotal = 0;
+                for (int row = 0; row <= rows - 4; row++) {
+                    int sum = 0;
+                    for (int r = row; r < row + 4; r++) {
+                        if (board[col][r] != null) {
+                            sum += board[col][r].getPlayer();
+                        }
+                    }
+                    if (Math.abs(sum) == 4){
+                        colTotal = sum < 0 ? -1 : 1;
+                    }
+                }
+                if (colTotal > 0){
+                    total[0]++;
+                }
+                if (colTotal < 0) {
+                    total[1]--;
+                }
+            }
+            return total;
+        }
+
+        private int[] checkHorizontal() {
+
+            int[] total = new int[2];
+            for (int row = 0; row < rows; row++) {
+                int rowTotal = 0;
+                for (int col = 0; col <= cols - 4; col++) {
+                    int sum = 0;
+                    for (int c = col; c < col + 4; c++) {
+                        if (board[c][row] != null) {
+                            sum += board[c][row].getPlayer();
+                        }
+                    }
+                    if (Math.abs(sum) == 4){
+                        rowTotal = sum < 0 ? -1 : 1;
+                    }
+                }
+                if (rowTotal > 0){
+                    total[0]++;
+                }
+                if (rowTotal < 0) {
+                    total[1]--;
+                }
+            }
+            return total;
+        }
+
+
 
         public void doGravity(){
             int minRow;
@@ -297,6 +466,10 @@ public class GameBoardView extends View {
             }
             protected void onDraw(Canvas canvas){
                 canvas.drawCircle(x,y,radius,color);
+            }
+
+            public int getPlayer() {
+                return player;
             }
         }
     }
