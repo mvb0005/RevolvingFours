@@ -1,5 +1,6 @@
 package edu.auburn.respectedprocess.revolvingfour.views;
 
+import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.content.Context;
@@ -71,9 +72,98 @@ public class GameBoardView extends View {
 
     }
 
-    @Override
-    public void setRotation(float rotation){
-        super.setRotation(rotation);
+    public void reset(){
+        gameBoard = new GameBoard(7, 7, paint1, paint2);
+        invalidate();
+    }
+
+    public void rotateLeft(){
+        ObjectAnimator animator = ObjectAnimator.ofFloat(this, "rotation", -90);
+        animator.setDuration(500);
+        animator.start();
+        animator.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animator) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animator) {
+                gameBoard.rotateLeft();
+                gameBoard.doGravity();
+                setRotation(0);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animator) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animator) {
+
+            }
+        });
+
+    }
+
+    public void rotateRight(){
+        ObjectAnimator animator = ObjectAnimator.ofFloat(this, "rotation", 90);
+        animator.setDuration(500);
+        animator.start();
+        animator.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animator) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animator) {
+                gameBoard.rotateRight();
+                gameBoard.doGravity();
+                setRotation(0);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animator) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animator) {
+
+            }
+        });
+
+    }
+
+    public void rotate180(){
+        ObjectAnimator animator = ObjectAnimator.ofFloat(this, "rotation", 180);
+        animator.setDuration(1000);
+        animator.start();
+        animator.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animator) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animator) {
+                gameBoard.rotate180();
+                gameBoard.doGravity();
+                setRotation(0);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animator) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animator) {
+
+            }
+        });
     }
 
     public void newMove(int col){
@@ -99,12 +189,29 @@ public class GameBoardView extends View {
 
         public void rotateLeft(){
             Circle[][] newBoard = new Circle[cols][rows];
+            Circle c;
             for (int row = 0; row < rows; row++){
-                for (int col = 0; col < cols; cols++){
-                    newBoard[col][rows - 1 - row] = board[col][row];
+                for (int col = 0; col < cols; col++){
+                    c = board[row][col];
+                    if (c != null) {
+                        c.setPosition(col * (CIRCLE_RADIUS * 2) + CIRCLE_RADIUS, (rows - 1 - row) * (CIRCLE_RADIUS * 2) + CIRCLE_RADIUS);
+                    }
+                    newBoard[col][rows - 1 - row] = c;
                 }
             }
             board = newBoard;
+            invalidate();
+        }
+
+        public void rotateRight(){
+            rotateLeft();
+            rotateLeft();
+            rotateLeft();
+        }
+
+        public void rotate180(){
+            rotateLeft();
+            rotateLeft();
         }
 
         public void onDraw(Canvas canvas) {
@@ -135,6 +242,25 @@ public class GameBoardView extends View {
             return true;
         }
 
+        public void doGravity(){
+            int minRow;
+            Circle c;
+            for (int col = 0; col < cols; col++){
+                minRow = rows - 1;
+                for (int row = rows - 1; row >= 0; row--){
+                    if (board[col][row] != null) {
+                        c = board[col][row];
+                        ObjectAnimator animator = ObjectAnimator.ofInt(c, "y", (2 * CIRCLE_RADIUS) * minRow + CIRCLE_RADIUS);
+                        animator.setDuration((minRow * (2 * CIRCLE_RADIUS) + CIRCLE_RADIUS) - c.getY());
+                        animator.start();
+                        board[col][row] = null;
+                        board[col][minRow] = c;
+                        minRow--;
+                    }
+                }
+            }
+        }
+        
         private class Circle {
             int x;
             int y;
