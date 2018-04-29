@@ -199,7 +199,7 @@ public class GameBoardView extends View {
     }
 
     public void setColor2(int newColor) {
-        paint1.setColor(newColor);
+        paint2.setColor(newColor);
         invalidate();
     }
 

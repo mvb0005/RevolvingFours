@@ -85,7 +85,7 @@ public class TopFragment extends Fragment {
         colors.add("Yellow");
         colors.add("Magenta");
         colors.add("Cyan");
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
+        ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(getContext(),
                 android.R.layout.simple_spinner_item, colors) {
             @Override
             public boolean isEnabled(int position){
@@ -107,11 +107,34 @@ public class TopFragment extends Fragment {
                 return view;
             }
         };
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(getContext(),
+                android.R.layout.simple_spinner_item, colors) {
+            @Override
+            public boolean isEnabled(int position){
+                if (getColorInt(position) == ((MainActivity)getActivity()).getGameBoardView().getColor1()) {        // disable the color if the other player is using it
+                    return false;
+                }
+                return true;
+            }
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                if (getColorInt(position) == ((MainActivity)getActivity()).getGameBoardView().getColor1()) {
+                    tv.setTextColor(Color.GRAY);
+                }
+                else {
+                    tv.setTextColor(Color.BLACK);
+                }
+                return view;
+            }
+        };
+        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spin1 = (Spinner) view.findViewById(R.id.player1Spinner);
         spin2 = (Spinner) view.findViewById(R.id.player2Spinner);
-        spin1.setAdapter(adapter);
-        spin2.setAdapter(adapter);
+        spin1.setAdapter(adapter1);
+        spin2.setAdapter(adapter2);
         spin1.setOnItemSelectedListener(spinListener);
         spin2.setOnItemSelectedListener(spinListener);
         spin1.setSelection(0);
