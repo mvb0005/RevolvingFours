@@ -1,14 +1,23 @@
 package edu.auburn.eng.csse.comp3710.spring2018.respecttheprocess.activities;
-
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
-
 import edu.auburn.eng.csse.comp3710.spring2018.respecttheprocess.fragments.RotationFragment;
 import edu.auburn.eng.csse.comp3710.spring2018.respecttheprocess.fragments.TopFragment;
 import edu.auburn.eng.csse.comp3710.spring2018.respecttheprocess.R;
 import edu.auburn.eng.csse.comp3710.spring2018.respecttheprocess.views.GameBoardView;
+
+
+//                |-------------------------------------------------------|
+//                |                    REVOLVING FOURS                    |
+//                |-------------------------------------------------------|
+//                     Created by Benjamin Williams and Matthew Bonsall
+//
+//                                  Auburn University
+//                                      COMP 3710
+//                                     Spring 2018
+
 
 public class MainActivity extends AppCompatActivity implements TopFragment.OnFragmentInteractionListener,
         RotationFragment.OnFragmentInteractionListener {
