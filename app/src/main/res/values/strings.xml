@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">RevolvingFour</string>
+    <string name="rotate_left">Rotate Left</string>
+    <string name="rotate_180">Rotate 180</string>
+    <string name="rotate_right">Rotate Right</string>
 </resources>

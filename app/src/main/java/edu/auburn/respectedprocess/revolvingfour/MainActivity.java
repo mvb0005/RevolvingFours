@@ -3,6 +3,8 @@ package edu.auburn.respectedprocess.revolvingfour;
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.net.Uri;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,7 +13,7 @@ import android.view.View;
 
 import edu.auburn.respectedprocess.revolvingfour.views.GameBoardView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements RotationFragment.OnFragmentInteractionListener {
 
     GameBoardView gameBoardView;
     @Override
