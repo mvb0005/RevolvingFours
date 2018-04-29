@@ -1,14 +1,14 @@
-package edu.auburn.respectedprocess.revolvingfour;
+package edu.auburn.eng.csse.comp3710.spring2018.respecttheprocess.fragments;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import edu.auburn.eng.csse.comp3710.spring2018.respecttheprocess.R;
 
 
 /**

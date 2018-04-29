@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="edu.auburn.respectedprocess.revolvingfour">
+    package="edu.auburn.eng.csse.comp3710.spring2018.respecttheprocess">
 
     <application
         android:allowBackup="true"
@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity
-            android:name=".SplashActivity"
+            android:name="edu.auburn.eng.csse.comp3710.spring2018.respecttheprocess.activities.SplashActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name="edu.auburn.eng.csse.comp3710.spring2018.respecttheprocess.activities.MainActivity"
             android:screenOrientation="portrait">
         </activity>
     </application>

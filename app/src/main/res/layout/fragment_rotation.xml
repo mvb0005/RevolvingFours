@@ -5,7 +5,7 @@
     android:background="@android:color/background_light"
     android:gravity="center"
     android:orientation="horizontal"
-    tools:context="edu.auburn.respectedprocess.revolvingfour.RotationFragment">
+    tools:context="edu.auburn.respectedprocess.revolvingfour.edu.auburn.eng.csse.comp3710.spring2018.respectedprocess.revolvingfour.RotationFragment">
 
     <Button
         android:id="@+id/rotateleft"

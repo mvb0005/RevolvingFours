@@ -1,8 +1,7 @@
-package edu.auburn.respectedprocess.revolvingfour.views;
+package edu.auburn.eng.csse.comp3710.spring2018.respecttheprocess.views;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -12,11 +11,10 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
-import edu.auburn.respectedprocess.revolvingfour.MainActivity;
-import edu.auburn.respectedprocess.revolvingfour.R;
+import edu.auburn.eng.csse.comp3710.spring2018.respecttheprocess.activities.MainActivity;
+import edu.auburn.eng.csse.comp3710.spring2018.respecttheprocess.R;
 
 /**
  * Created by Matt on 4/23/2018.
