@@ -1,6 +1,7 @@
 package edu.auburn.respectedprocess.revolvingfour;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -24,6 +25,21 @@ public class RotationFragment extends Fragment {
     private Button rotate180Button;
     private Button rotateRightButton;
     private OnFragmentInteractionListener mListener;
+    private View.OnClickListener rotateListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            switch (view.getId()) {
+                case R.id.rotateleft:
+                    mListener.rotate(0);
+                    break;
+                case R.id.rotate180:
+                    mListener.rotate(1);
+                    break;
+                case R.id.rotateright:
+                    mListener.rotate(2);
+            }
+        }
+    };
 
     public RotationFragment() {
     }
@@ -51,6 +67,9 @@ public class RotationFragment extends Fragment {
         Button rotateLeftButton = myView.findViewById(R.id.rotateleft);;
         Button rotate180Button = myView.findViewById(R.id.rotate180);
         Button rotateRightButton = myView.findViewById(R.id.rotateright);
+        rotateLeftButton.setOnClickListener(rotateListener);
+        rotate180Button.setOnClickListener(rotateListener);
+        rotateRightButton.setOnClickListener(rotateListener);
         return myView;
     }
 
@@ -82,6 +101,6 @@ public class RotationFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        //rotateRight();
+        void rotate(int direction);
     }
 }

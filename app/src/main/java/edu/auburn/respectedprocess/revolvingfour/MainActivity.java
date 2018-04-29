@@ -40,4 +40,19 @@ public class MainActivity extends AppCompatActivity implements TopFragment.OnFra
     public void reset() {
         Log.d("test", "Reset Clicked");
     }
+
+    @Override
+    public void rotate(int direction) {
+//        switch (direction) {
+//            case 0:
+//                rotateLeft();
+//                break;
+//            case 1:
+//                rotate180();
+//                break;
+//            case 2:
+//                rotateRight();
+//                break;
+//        }
+    }
 }
