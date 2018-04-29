@@ -3,4 +3,11 @@
     <string name="rotate_left">Rotate Left</string>
     <string name="rotate_180">Rotate 180</string>
     <string name="rotate_right">Rotate Right</string>
+    <string name="title_activity_splash">SplashActivity</string>
+    <string name="splashtext1">Revolving Fours</string>
+    <string name="splashtext2">Benjamin Williams</string>
+    <string name="splashtext3">Matthew Bonsall</string>
+    <string name="splashtext4">Auburn University</string>
+    <string name="splashtext5">COMP 3710</string>
+    <string name="splashtext6">Spring 2018</string>
 </resources>
