@@ -4,7 +4,6 @@ import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.net.Uri;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,7 +12,8 @@ import android.view.View;
 
 import edu.auburn.respectedprocess.revolvingfour.views.GameBoardView;
 
-public class MainActivity extends AppCompatActivity implements RotationFragment.OnFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements TopFragment.OnFragmentInteractionListener,
+                                                    RotationFragment.OnFragmentInteractionListener{
 
     GameBoardView gameBoardView;
     @Override
@@ -34,5 +34,10 @@ public class MainActivity extends AppCompatActivity implements RotationFragment.
 
         }
         return super.onTouchEvent(event);
+    }
+
+    @Override
+    public void reset() {
+        Log.d("test", "Reset Clicked");
     }
 }
