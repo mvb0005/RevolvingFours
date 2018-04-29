@@ -3,6 +3,7 @@ package edu.auburn.respectedprocess.revolvingfour;
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.graphics.Color;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -41,6 +42,11 @@ public class MainActivity extends AppCompatActivity implements TopFragment.OnFra
     public void reset() {
         gameBoardView.reset();
         Log.d("test", "Reset Clicked");
+    }
+
+    @Override
+    public void changeColor(int player, int color) {
+
     }
 
     @Override

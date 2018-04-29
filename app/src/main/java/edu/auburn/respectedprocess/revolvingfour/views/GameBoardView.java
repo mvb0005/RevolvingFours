@@ -171,6 +171,14 @@ public class GameBoardView extends View {
         invalidate();
     }
 
+    public void setColor1(int newColor) {
+        paint1.setColor(newColor);
+    }
+
+    public void setColor2(int newColor) {
+        paint1.setColor(newColor);
+    }
+
     private class GameBoard {
         int rows;
         int cols;
