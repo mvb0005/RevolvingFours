@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 26
     defaultConfig {
-        applicationId "edu.auburn.respectedprocess.revolvingfour"
+        applicationId "edu.auburn.eng.csse.comp3710.spring2018.respecttheprocess"
         minSdkVersion 25
         targetSdkVersion 26
         versionCode 1

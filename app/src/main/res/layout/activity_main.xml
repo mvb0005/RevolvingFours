@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="edu.auburn.respectedprocess.revolvingfour.MainActivity">
+    tools:context="edu.auburn.respectedprocess.revolvingfour.edu.auburn.eng.csse.comp3710.spring2018.respectedprocess.revolvingfour.MainActivity">
 
-    <edu.auburn.respectedprocess.revolvingfour.views.GameBoardView
+    <edu.auburn.eng.csse.comp3710.spring2018.respecttheprocess.views.GameBoardView
         android:id="@+id/gameboardview"
         android:layout_width="1400px"
         android:layout_height="1400px"
@@ -18,7 +18,7 @@
 
     <fragment
         android:id="@+id/rotationfragment"
-        android:name="edu.auburn.respectedprocess.revolvingfour.RotationFragment"
+        android:name="edu.auburn.eng.csse.comp3710.spring2018.respecttheprocess.fragments.RotationFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -27,7 +27,7 @@
 
     <fragment
         android:id="@+id/topfragment"
-        android:name="edu.auburn.respectedprocess.revolvingfour.TopFragment"
+        android:name="edu.auburn.eng.csse.comp3710.spring2018.respecttheprocess.fragments.TopFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/gameboardview"

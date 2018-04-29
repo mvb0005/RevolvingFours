@@ -1,20 +1,17 @@
-package edu.auburn.respectedprocess.revolvingfour;
+package edu.auburn.eng.csse.comp3710.spring2018.respecttheprocess.activities;
 
-import android.animation.Animator;
-import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
-import android.graphics.Color;
-import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
-import android.view.View;
 
-import edu.auburn.respectedprocess.revolvingfour.views.GameBoardView;
+import edu.auburn.eng.csse.comp3710.spring2018.respecttheprocess.fragments.RotationFragment;
+import edu.auburn.eng.csse.comp3710.spring2018.respecttheprocess.fragments.TopFragment;
+import edu.auburn.eng.csse.comp3710.spring2018.respecttheprocess.R;
+import edu.auburn.eng.csse.comp3710.spring2018.respecttheprocess.views.GameBoardView;
 
 public class MainActivity extends AppCompatActivity implements TopFragment.OnFragmentInteractionListener,
-                                                    RotationFragment.OnFragmentInteractionListener{
+        RotationFragment.OnFragmentInteractionListener {
 
     GameBoardView gameBoardView;
     int player = 1;

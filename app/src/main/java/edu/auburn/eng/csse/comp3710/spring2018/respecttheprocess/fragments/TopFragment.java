@@ -1,8 +1,7 @@
-package edu.auburn.respectedprocess.revolvingfour;
+package edu.auburn.eng.csse.comp3710.spring2018.respecttheprocess.fragments;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -18,8 +17,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.auburn.respectedprocess.revolvingfour.views.CheckerView;
-import edu.auburn.respectedprocess.revolvingfour.views.GameBoardView;
+import edu.auburn.eng.csse.comp3710.spring2018.respecttheprocess.activities.MainActivity;
+import edu.auburn.eng.csse.comp3710.spring2018.respecttheprocess.R;
 
 public class TopFragment extends Fragment {
 
