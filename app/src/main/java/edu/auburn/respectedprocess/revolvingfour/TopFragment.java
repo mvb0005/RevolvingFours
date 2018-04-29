@@ -3,7 +3,7 @@ package edu.auburn.respectedprocess.revolvingfour;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -68,13 +68,13 @@ public class TopFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_top, container, false);
         List<String> colors = new ArrayList<String>();
-            colors.add("Black");
-            colors.add("Red");
-            colors.add("Blue");
-            colors.add("Green");
-            colors.add("Yellow");
-            colors.add("Magenta");
-            colors.add("Cyan");
+        colors.add("Black");
+        colors.add("Red");
+        colors.add("Blue");
+        colors.add("Green");
+        colors.add("Yellow");
+        colors.add("Magenta");
+        colors.add("Cyan");
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
                 android.R.layout.simple_spinner_item, colors);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -121,5 +121,10 @@ public class TopFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         void reset();
         void changeColor(int player, int color);
+    }
+
+    public void updatePlayer(int player){
+        spin1.setVisibility(player > 0 ? View.INVISIBLE : View.VISIBLE);
+        spin2.setVisibility(player < 0 ? View.INVISIBLE : View.VISIBLE);
     }
 }

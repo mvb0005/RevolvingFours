@@ -17,11 +17,14 @@ public class MainActivity extends AppCompatActivity implements TopFragment.OnFra
                                                     RotationFragment.OnFragmentInteractionListener{
 
     GameBoardView gameBoardView;
+    int player = 1;
+    TopFragment topFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        gameBoardView = (GameBoardView) findViewById(R.id.gameboardview);
+        gameBoardView = findViewById(R.id.gameboardview);
+        topFragment = (TopFragment) getSupportFragmentManager().findFragmentById(R.id.topfragment);
     }
 
     @Override
@@ -29,7 +32,8 @@ public class MainActivity extends AppCompatActivity implements TopFragment.OnFra
         if (event.getAction() == MotionEvent.ACTION_UP){
             if (event.getX() > gameBoardView.getX() && event.getX() < gameBoardView.getX() + gameBoardView.getWidth()) {
                 if (event.getY() > gameBoardView.getY() && event.getY() < gameBoardView.getY() + gameBoardView.getHeight()) {
-                    gameBoardView.newMove((int) (event.getX() - gameBoardView.getX()) / 200);
+                    gameBoardView.newMove((int) (event.getX() - gameBoardView.getX()) / 200, player);
+                    updatePlayer();
                 }
             }
 
@@ -41,6 +45,8 @@ public class MainActivity extends AppCompatActivity implements TopFragment.OnFra
     @Override
     public void reset() {
         gameBoardView.reset();
+        player = -1;
+        updatePlayer();
         Log.d("test", "Reset Clicked");
     }
 
@@ -62,5 +68,12 @@ public class MainActivity extends AppCompatActivity implements TopFragment.OnFra
                 gameBoardView.rotateRight();
                 break;
         }
+        updatePlayer();
+    }
+
+    public void updatePlayer(){
+        topFragment.updatePlayer(player);
+        player *= -1;
+
     }
 }

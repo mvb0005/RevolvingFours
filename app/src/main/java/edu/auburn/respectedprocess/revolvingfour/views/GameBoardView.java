@@ -166,8 +166,8 @@ public class GameBoardView extends View {
         });
     }
 
-    public void newMove(int col){
-        gameBoard.newMove(col);
+    public void newMove(int col, int player){
+        gameBoard.newMove(col, player);
         invalidate();
     }
 
@@ -185,7 +185,6 @@ public class GameBoardView extends View {
         Paint color1;
         Paint color2;
         Circle[][] board;
-        int player = 1;
 
         public GameBoard(int _rows, int _cols, Paint _color1, Paint _color2) {
             rows = _rows;
@@ -233,7 +232,7 @@ public class GameBoardView extends View {
             canvas.drawBitmap(gridOverlay, matrix, null);
         }
 
-        public boolean newMove(int col) {
+        public boolean newMove(int col, int player) {
             int lowest = rows - 1;
             while (lowest >= 0 && board[col][lowest] != null) {
                 lowest--;
@@ -246,7 +245,6 @@ public class GameBoardView extends View {
             animator.setDuration(lowest * (2 * CIRCLE_RADIUS) + CIRCLE_RADIUS);
             animator.start();
             board[col][lowest] = c;
-            player *= -1;
             return true;
         }
 

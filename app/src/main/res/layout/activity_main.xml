@@ -26,7 +26,7 @@
         tools:layout="@layout/fragment_rotation" />
 
     <fragment
-        android:id="@+id/fragment"
+        android:id="@+id/topfragment"
         android:name="edu.auburn.respectedprocess.revolvingfour.TopFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
