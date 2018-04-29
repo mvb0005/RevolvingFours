@@ -4,18 +4,29 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 public class TopFragment extends Fragment {
+
     private OnFragmentInteractionListener mListener;
+    private Button resetButton;
+
+    private View.OnClickListener resetListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            mListener.reset();
+        }
+    };
 
     public TopFragment() {
         // Required empty public constructor
     }
 
-    public static TopFragment newInstance(String param1, String param2) {
+    public static TopFragment newInstance() {
         TopFragment fragment = new TopFragment();
         return fragment;
     }
@@ -28,8 +39,10 @@ public class TopFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_top, container, false);
+        View view = inflater.inflate(R.layout.fragment_top, container, false);
+        resetButton = view.findViewById(R.id.resetButton);
+        resetButton.setOnClickListener(resetListener);
+        return view;
     }
 
     @Override
@@ -60,7 +73,6 @@ public class TopFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void reset();
     }
 }
