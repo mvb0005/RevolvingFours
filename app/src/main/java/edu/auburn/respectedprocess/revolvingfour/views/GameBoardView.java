@@ -21,6 +21,7 @@ import edu.auburn.respectedprocess.revolvingfour.R;
  */
 
 public class GameBoardView extends View {
+    final int CIRCLE_RADIUS = 100;
     Paint paint1;
     Paint paint2;
     Bitmap gridOverlay;
@@ -59,7 +60,7 @@ public class GameBoardView extends View {
 
         gridOverlay = BitmapFactory.decodeResource(getResources(), R.drawable.gameboard);
         gridOverlay = Bitmap.createScaledBitmap(gridOverlay, 1400,1400, false);
-        gameBoard = new GameBoard(100, 7,7, paint1, paint2);
+        gameBoard = new GameBoard(7,7, paint1, paint2);
         matrix = new Matrix();
     }
 
@@ -81,7 +82,6 @@ public class GameBoardView extends View {
     }
 
     private class GameBoard {
-        int radius;
         int rows;
         int cols;
         Paint color1;
@@ -89,13 +89,22 @@ public class GameBoardView extends View {
         Circle[][] board;
         int player = 1;
 
-        public GameBoard(int _radius, int _rows, int _cols, Paint _color1, Paint _color2) {
+        public GameBoard(int _rows, int _cols, Paint _color1, Paint _color2) {
             rows = _rows;
             cols = _cols;
             board = new Circle[cols][rows];
             color1 = _color1;
             color2 = _color2;
-            radius = _radius;
+        }
+
+        public void rotateLeft(){
+            Circle[][] newBoard = new Circle[cols][rows];
+            for (int row = 0; row < rows; row++){
+                for (int col = 0; col < cols; cols++){
+                    newBoard[col][rows - 1 - row] = board[col][row];
+                }
+            }
+            board = newBoard;
         }
 
         public void onDraw(Canvas canvas) {
@@ -117,9 +126,9 @@ public class GameBoardView extends View {
             if (lowest < 0) {
                 return false;
             }
-            Circle c = new Circle(200 * col + 100, 0, radius, player > 0 ? color1: color2, player);
-            ObjectAnimator animator = ObjectAnimator.ofInt(c, "y", 200 * lowest + 100);
-            animator.setDuration(lowest * 200 + 100);
+            Circle c = new Circle((2 * CIRCLE_RADIUS) * col + CIRCLE_RADIUS, 0, CIRCLE_RADIUS, player > 0 ? color1: color2, player);
+            ObjectAnimator animator = ObjectAnimator.ofInt(c, "y", (2 * CIRCLE_RADIUS) * lowest + CIRCLE_RADIUS);
+            animator.setDuration(lowest * (2 * CIRCLE_RADIUS) + CIRCLE_RADIUS);
             animator.start();
             board[col][lowest] = c;
             player *= -1;
@@ -150,6 +159,10 @@ public class GameBoardView extends View {
                 return y;
             }
 
+            public void setPosition(int _x, int _y){
+                x = _x;
+                y = _y;
+            }
             protected void onDraw(Canvas canvas){
                 canvas.drawCircle(x,y,radius,color);
             }

@@ -2,8 +2,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
+    android:background="@android:color/background_light"
     android:gravity="center"
+    android:orientation="horizontal"
     tools:context="edu.auburn.respectedprocess.revolvingfour.RotationFragment">
 
     <Button
@@ -11,11 +12,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/rotate_left" />
+
     <Button
         android:id="@+id/rotate180"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/rotate_180" />
+
     <Button
         android:id="@+id/rotateright"
         android:layout_width="wrap_content"
