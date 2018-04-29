@@ -18,6 +18,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.auburn.respectedprocess.revolvingfour.views.CheckerView;
 import edu.auburn.respectedprocess.revolvingfour.views.GameBoardView;
 
 public class TopFragment extends Fragment {
@@ -29,6 +30,8 @@ public class TopFragment extends Fragment {
     private List<String> colors;
     private int callCount;
     private TextView statusTextView;
+    private CheckerView player1Checker;
+    private CheckerView player2Checker;
 
     private View.OnClickListener resetListener = new View.OnClickListener() {
         @Override
@@ -41,12 +44,20 @@ public class TopFragment extends Fragment {
         @Override
         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
             int player = 0;
+            int color = getColorInt(i);
             if (adapterView == getView().findViewById(R.id.player1Spinner)) {
+                Log.d("Test", String.valueOf(player1Checker == null));
+                if (player1Checker != null) {
+                    Log.d("Test", "SET COLOR 1");
+                    player1Checker.setColor(color);
+                }
                 player = 1;
             } else if (adapterView == getView().findViewById(R.id.player2Spinner)) {
+                if (player2Checker != null) {
+                    player2Checker.setColor(color);
+                }
                 player = 2;
             }
-            int color = getColorInt(i);
             if (callCount >= 2) {
                 mListener.changeColor(player, color);
             }
@@ -85,6 +96,7 @@ public class TopFragment extends Fragment {
         colors.add("Yellow");
         colors.add("Magenta");
         colors.add("Cyan");
+        colors.add("Orange");
         ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(getContext(),
                 android.R.layout.simple_spinner_item, colors) {
             @Override
@@ -131,6 +143,8 @@ public class TopFragment extends Fragment {
         };
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        player1Checker = (CheckerView) view.findViewById(R.id.player1Checker);
+        player2Checker = (CheckerView) view.findViewById(R.id.player2Checker);
         spin1 = (Spinner) view.findViewById(R.id.player1Spinner);
         spin2 = (Spinner) view.findViewById(R.id.player2Spinner);
         spin1.setAdapter(adapter1);
@@ -139,6 +153,8 @@ public class TopFragment extends Fragment {
         spin2.setOnItemSelectedListener(spinListener);
         spin1.setSelection(0);
         spin2.setSelection(1);
+        player1Checker.setColor(getColorInt(0));
+        player2Checker.setColor(getColorInt(1));
         resetButton = view.findViewById(R.id.resetButton);
         resetButton.setOnClickListener(resetListener);
         statusTextView = view.findViewById(R.id.statusTextView);
@@ -166,13 +182,17 @@ public class TopFragment extends Fragment {
         Log.d("Test", String.valueOf(winner[0]) + " " + String.valueOf(winner[1]));
         if (winner[0] + Math.abs(winner[1]) == 0){
             statusTextView.setText("");
+            mListener.canMove(true);
         } else {
             if (winner[0] == Math.abs(winner[1])){
                 statusTextView.setText(winner[0] + "   TIE   " + Math.abs(winner[1]));
+                mListener.canMove(true);
             } else if (winner[0] > Math.abs(winner[1])){
                 statusTextView.setText("Player 1 Wins");
+                mListener.canMove(false);
             } else {
                 statusTextView.setText("Player 2 Wins");
+                mListener.canMove(false);
             }
         }
     }
@@ -190,11 +210,12 @@ public class TopFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         void reset();
         void changeColor(int player, int color);
+        void canMove(boolean safeToMove);
     }
 
     public void updatePlayer(int player){
-        spin1.setVisibility(player > 0 ? View.INVISIBLE : View.VISIBLE);
-        spin2.setVisibility(player < 0 ? View.INVISIBLE : View.VISIBLE);
+        player1Checker.setVisibility(player > 0 ? View.INVISIBLE : View.VISIBLE);
+        player2Checker.setVisibility(player < 0 ? View.INVISIBLE : View.VISIBLE);
     }
 
     public int getColorInt(int position) {
@@ -221,6 +242,8 @@ public class TopFragment extends Fragment {
             case 6:
                 resultColor = Color.CYAN;
                 break;
+            case 7:
+                resultColor = Color.parseColor("#FF8C00");
         }
         return resultColor;
     }

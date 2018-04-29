@@ -70,6 +70,10 @@ public class GameBoardView extends View {
     public  boolean isSafeToMove() {
         return safeToMove;
     }
+
+    public void setSafeToMove(boolean safe){
+        safeToMove = safe;
+    }
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
@@ -441,8 +445,6 @@ public class GameBoardView extends View {
             }
             return total;
         }
-
-
 
         void doGravity(){
             int minRow;

@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements TopFragment.OnFra
         player = -1;
         updatePlayer();
         updateStatus();
+        gameBoardView.setSafeToMove(true);
         Log.d("test", "Reset Clicked");
     }
 
@@ -69,7 +70,13 @@ public class MainActivity extends AppCompatActivity implements TopFragment.OnFra
     }
 
     @Override
+    public void canMove(boolean canMove) {
+        gameBoardView.setSafeToMove(canMove);
+    }
+
+    @Override
     public void rotate(int direction) {
+        updateStatus();
         if (gameBoardView.isSafeToMove()) {
             switch (direction) {
                 case 0:
@@ -84,7 +91,6 @@ public class MainActivity extends AppCompatActivity implements TopFragment.OnFra
             }
             updatePlayer();
         }
-        updateStatus();
     }
 
     public void updatePlayer(){
