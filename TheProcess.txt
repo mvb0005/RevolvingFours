@@ -1,6 +1,0 @@
-1) Take a drink every time the program fails to compile.
-2) Take a drink every time the program crashes.
-3) Take a drink for every tab you open.
-4) Give a drink for fixing someone else's mistake.
-5) 'git commit' - everyone commits to a drink.
-6) Finish your drink any time there are merge conflicts.
