@@ -185,12 +185,22 @@ public class GameBoardView extends View {
         invalidate();
     }
 
+    public int getColor1() {
+        return paint1.getColor();
+    }
+
     public void setColor1(int newColor) {
         paint1.setColor(newColor);
+        invalidate();
+    }
+
+    public int getColor2() {
+        return paint2.getColor();
     }
 
     public void setColor2(int newColor) {
         paint1.setColor(newColor);
+        invalidate();
     }
 
     public int[] getWinner(){

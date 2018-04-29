@@ -60,7 +60,12 @@ public class MainActivity extends AppCompatActivity implements TopFragment.OnFra
 
     @Override
     public void changeColor(int player, int color) {
-
+        if (player == 1) {
+            gameBoardView.setColor1(color);
+        }
+        else if (player == 2) {
+            gameBoardView.setColor2(color);
+        }
     }
 
     @Override
@@ -86,5 +91,9 @@ public class MainActivity extends AppCompatActivity implements TopFragment.OnFra
         topFragment.updatePlayer(player);
         player *= -1;
 
+    }
+
+    public GameBoardView getGameBoardView() {
+        return gameBoardView;
     }
 }

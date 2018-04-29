@@ -1,6 +1,7 @@
 package edu.auburn.respectedprocess.revolvingfour;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -17,12 +18,16 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.auburn.respectedprocess.revolvingfour.views.GameBoardView;
+
 public class TopFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
     private Button resetButton;
     private Spinner spin1;
     private Spinner spin2;
+    private List<String> colors;
+    private int callCount;
     private TextView statusTextView;
 
     private View.OnClickListener resetListener = new View.OnClickListener() {
@@ -36,13 +41,16 @@ public class TopFragment extends Fragment {
         @Override
         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
             int player = 0;
-            if (view == getView().findViewById(R.id.player1Spinner)) {
+            if (adapterView == getView().findViewById(R.id.player1Spinner)) {
                 player = 1;
-            } else if (view == getView().findViewById(R.id.player2Spinner)) {
+            } else if (adapterView == getView().findViewById(R.id.player2Spinner)) {
                 player = 2;
             }
-            int color = 1;
-            mListener.changeColor(player, color);
+            int color = getColorInt(i);
+            if (callCount >= 2) {
+                mListener.changeColor(player, color);
+            }
+            callCount++;
         }
 
         @Override
@@ -69,7 +77,7 @@ public class TopFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_top, container, false);
-        List<String> colors = new ArrayList<String>();
+        colors = new ArrayList<String>();
         colors.add("Black");
         colors.add("Red");
         colors.add("Blue");
@@ -78,16 +86,36 @@ public class TopFragment extends Fragment {
         colors.add("Magenta");
         colors.add("Cyan");
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
-                android.R.layout.simple_spinner_item, colors);
+                android.R.layout.simple_spinner_item, colors) {
+            @Override
+            public boolean isEnabled(int position){
+                if (getColorInt(position) == ((MainActivity)getActivity()).getGameBoardView().getColor2()) {        // disable the color if the other player is using it
+                    return false;
+                }
+                return true;
+            }
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView tv = (TextView) view;
+                if (getColorInt(position) == ((MainActivity)getActivity()).getGameBoardView().getColor2()) {
+                    tv.setTextColor(Color.GRAY);
+                }
+                else {
+                    tv.setTextColor(Color.BLACK);
+                }
+                return view;
+            }
+        };
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spin1 = (Spinner) view.findViewById(R.id.player1Spinner);
         spin2 = (Spinner) view.findViewById(R.id.player2Spinner);
         spin1.setAdapter(adapter);
         spin2.setAdapter(adapter);
-        spin1.setSelection(0);
-        spin2.setSelection(1);
         spin1.setOnItemSelectedListener(spinListener);
         spin2.setOnItemSelectedListener(spinListener);
+        spin1.setSelection(0);
+        spin2.setSelection(1);
         resetButton = view.findViewById(R.id.resetButton);
         resetButton.setOnClickListener(resetListener);
         statusTextView = view.findViewById(R.id.statusTextView);
@@ -144,5 +172,33 @@ public class TopFragment extends Fragment {
     public void updatePlayer(int player){
         spin1.setVisibility(player > 0 ? View.INVISIBLE : View.VISIBLE);
         spin2.setVisibility(player < 0 ? View.INVISIBLE : View.VISIBLE);
+    }
+
+    public int getColorInt(int position) {
+        int resultColor = 0;
+        switch(position){
+            case 0:
+                resultColor = Color.BLACK;
+                break;
+            case 1:
+                resultColor = Color.RED;
+                break;
+            case 2:
+                resultColor = Color.BLUE;
+                break;
+            case 3:
+                resultColor = Color.GREEN;
+                break;
+            case 4:
+                resultColor = Color.YELLOW;
+                break;
+            case 5:
+                resultColor = Color.MAGENTA;
+                break;
+            case 6:
+                resultColor = Color.CYAN;
+                break;
+        }
+        return resultColor;
     }
 }
