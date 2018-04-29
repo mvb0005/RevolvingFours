@@ -1,4 +1,4 @@
-package edu.auburn.respectedprocess.revolvingfour.views;
+package edu.auburn.eng.csse.comp3710.spring2018.respecttheprocess.views;
 
 import android.content.Context;
 import android.graphics.Canvas;

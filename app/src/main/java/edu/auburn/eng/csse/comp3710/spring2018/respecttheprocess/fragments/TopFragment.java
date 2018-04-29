@@ -19,6 +19,7 @@ import java.util.List;
 
 import edu.auburn.eng.csse.comp3710.spring2018.respecttheprocess.activities.MainActivity;
 import edu.auburn.eng.csse.comp3710.spring2018.respecttheprocess.R;
+import edu.auburn.eng.csse.comp3710.spring2018.respecttheprocess.views.CheckerView;
 
 public class TopFragment extends Fragment {
 
