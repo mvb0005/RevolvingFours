@@ -15,6 +15,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 
+import edu.auburn.respectedprocess.revolvingfour.MainActivity;
 import edu.auburn.respectedprocess.revolvingfour.R;
 
 /**
@@ -28,6 +29,7 @@ public class GameBoardView extends View {
     Bitmap gridOverlay;
     Matrix matrix;
     GameBoard gameBoard;
+    boolean safeToMove = true;
 
     public GameBoardView(Context context) {
         super(context);
@@ -65,6 +67,9 @@ public class GameBoardView extends View {
         matrix = new Matrix();
     }
 
+    public  boolean isSafeToMove() {
+        return safeToMove;
+    }
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
@@ -80,23 +85,25 @@ public class GameBoardView extends View {
     public void rotateLeft(){
         ObjectAnimator animator = ObjectAnimator.ofFloat(this, "rotation", -90);
         animator.setDuration(500);
-        animator.start();
         animator.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animator) {
-
+                safeToMove = false;
             }
 
             @Override
             public void onAnimationEnd(Animator animator) {
                 gameBoard.rotateLeft();
                 gameBoard.doGravity();
+                MainActivity activity = (MainActivity) getContext();
+                activity.updateStatus();
                 setRotation(0);
+                safeToMove = true;
             }
 
             @Override
             public void onAnimationCancel(Animator animator) {
-
+                safeToMove = true;
             }
 
             @Override
@@ -104,17 +111,17 @@ public class GameBoardView extends View {
 
             }
         });
+        animator.start();
 
     }
 
     public void rotateRight(){
         ObjectAnimator animator = ObjectAnimator.ofFloat(this, "rotation", 90);
         animator.setDuration(500);
-        animator.start();
         animator.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animator) {
-
+                safeToMove = false;
             }
 
             @Override
@@ -122,11 +129,14 @@ public class GameBoardView extends View {
                 gameBoard.rotateRight();
                 gameBoard.doGravity();
                 setRotation(0);
+                MainActivity activity = (MainActivity) getContext();
+                activity.updateStatus();
+                safeToMove = true;
             }
 
             @Override
             public void onAnimationCancel(Animator animator) {
-
+                safeToMove = true;
             }
 
             @Override
@@ -134,29 +144,32 @@ public class GameBoardView extends View {
 
             }
         });
+        animator.start();
 
     }
 
     public void rotate180(){
         ObjectAnimator animator = ObjectAnimator.ofFloat(this, "rotation", 180);
         animator.setDuration(1000);
-        animator.start();
         animator.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animator) {
-
+                safeToMove = false;
             }
 
             @Override
             public void onAnimationEnd(Animator animator) {
                 gameBoard.rotate180();
                 gameBoard.doGravity();
+                MainActivity activity = (MainActivity) getContext();
+                activity.updateStatus();
                 setRotation(0);
+                safeToMove = true;
             }
 
             @Override
             public void onAnimationCancel(Animator animator) {
-
+                safeToMove = true;
             }
 
             @Override
@@ -164,6 +177,7 @@ public class GameBoardView extends View {
 
             }
         });
+        animator.start();
     }
 
     public void newMove(int col, int player){
@@ -179,6 +193,10 @@ public class GameBoardView extends View {
         paint1.setColor(newColor);
     }
 
+    public int[] getWinner(){
+        return gameBoard.getWinner();
+    }
+
     private class GameBoard {
         int rows;
         int cols;
@@ -186,7 +204,7 @@ public class GameBoardView extends View {
         Paint color2;
         Circle[][] board;
 
-        public GameBoard(int _rows, int _cols, Paint _color1, Paint _color2) {
+        GameBoard(int _rows, int _cols, Paint _color1, Paint _color2) {
             rows = _rows;
             cols = _cols;
             board = new Circle[cols][rows];
@@ -194,7 +212,7 @@ public class GameBoardView extends View {
             color2 = _color2;
         }
 
-        public void rotateLeft(){
+        void rotateLeft(){
             Circle[][] newBoard = new Circle[cols][rows];
             Circle c;
             for (int row = 0; row < rows; row++){
@@ -210,18 +228,18 @@ public class GameBoardView extends View {
             invalidate();
         }
 
-        public void rotateRight(){
+        void rotateRight(){
             rotateLeft();
             rotateLeft();
             rotateLeft();
         }
 
-        public void rotate180(){
+        void rotate180(){
             rotateLeft();
             rotateLeft();
         }
 
-        public void onDraw(Canvas canvas) {
+        void onDraw(Canvas canvas) {
             for (int col = 0; col < cols; col++) {
                 for (Circle c : board[col]) {
                     if (c != null) {
@@ -232,7 +250,7 @@ public class GameBoardView extends View {
             canvas.drawBitmap(gridOverlay, matrix, null);
         }
 
-        public boolean newMove(int col, int player) {
+        boolean newMove(int col, int player) {
             int lowest = rows - 1;
             while (lowest >= 0 && board[col][lowest] != null) {
                 lowest--;
@@ -245,11 +263,10 @@ public class GameBoardView extends View {
             animator.setDuration(lowest * (2 * CIRCLE_RADIUS) + CIRCLE_RADIUS);
             animator.start();
             board[col][lowest] = c;
-            Log.d("Test", String.valueOf(getWinner()));
             return true;
         }
 
-        public int getWinner(){
+        public int[] getWinner(){
             int[] total = new int[2];
             int[] temp = checkHorizontal();
             total[0] += temp[0];
@@ -263,7 +280,7 @@ public class GameBoardView extends View {
             temp = checkUpwardDiag();
             total[0] += temp[0];
             total[1] += temp[1];
-            return total[0] + total[1];
+            return total;
         }
 
         private int[] checkUpwardDiag() {
@@ -271,7 +288,7 @@ public class GameBoardView extends View {
             int check = 4;
             for (int x = 0; x <= 3; x++) {
                 int diagTotal = 0;
-                for (int y = rows - 1; y > rows - check; y--){
+                for (int y = rows - 1; y > rows - check - 1; y--){
                     int sum = 0;
                     for (int yrange = 0; yrange < 4; yrange++){
                         if (board[x + (rows - 1 - y) + yrange][y - yrange] != null){
@@ -291,7 +308,7 @@ public class GameBoardView extends View {
                 }
             }
             check = 3;
-            for (int y = rows - 1; y >= 3; y--) {
+            for (int y = rows - 2; y >= 3; y--) {
                 int diagTotal = 0;
                 for (int x = 0; x < check; x++){
                     int sum = 0;
@@ -417,7 +434,7 @@ public class GameBoardView extends View {
 
 
 
-        public void doGravity(){
+        void doGravity(){
             int minRow;
             Circle c;
             for (int col = 0; col < cols; col++){
@@ -443,7 +460,7 @@ public class GameBoardView extends View {
             Paint color;
             int player;
 
-            public Circle(int _x, int _y, int _radius, Paint _color, int _player) {
+            Circle(int _x, int _y, int _radius, Paint _color, int _player) {
                 x = _x;
                 y = _y;
                 radius = _radius;
@@ -451,24 +468,24 @@ public class GameBoardView extends View {
                 player = _player;
             }
 
-            public void setY(int _y){
+            void setY(int _y){
                 y = _y;
                 invalidate();
             }
 
-            public int getY(){
+            int getY(){
                 return y;
             }
 
-            public void setPosition(int _x, int _y){
+            void setPosition(int _x, int _y){
                 x = _x;
                 y = _y;
             }
-            protected void onDraw(Canvas canvas){
+            void onDraw(Canvas canvas){
                 canvas.drawCircle(x,y,radius,color);
             }
 
-            public int getPlayer() {
+            int getPlayer() {
                 return player;
             }
         }

@@ -29,17 +29,24 @@ public class MainActivity extends AppCompatActivity implements TopFragment.OnFra
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_UP){
-            if (event.getX() > gameBoardView.getX() && event.getX() < gameBoardView.getX() + gameBoardView.getWidth()) {
-                if (event.getY() > gameBoardView.getY() && event.getY() < gameBoardView.getY() + gameBoardView.getHeight()) {
-                    gameBoardView.newMove((int) (event.getX() - gameBoardView.getX()) / 200, player);
-                    updatePlayer();
+        if (gameBoardView.isSafeToMove()) {
+            if (event.getAction() == MotionEvent.ACTION_UP) {
+                if (event.getX() > gameBoardView.getX() && event.getX() < gameBoardView.getX() + gameBoardView.getWidth()) {
+                    if (event.getY() > gameBoardView.getY() && event.getY() < gameBoardView.getY() + gameBoardView.getHeight()) {
+                        gameBoardView.newMove((int) (event.getX() - gameBoardView.getX()) / 200, player);
+                        updatePlayer();
+                    }
                 }
-            }
 
+            }
         }
+        updateStatus();
         return super.onTouchEvent(event);
 
+    }
+
+    public void updateStatus() {
+        topFragment.updateStatus(gameBoardView.getWinner());
     }
 
     @Override
@@ -47,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements TopFragment.OnFra
         gameBoardView.reset();
         player = -1;
         updatePlayer();
+        updateStatus();
         Log.d("test", "Reset Clicked");
     }
 
@@ -57,18 +65,21 @@ public class MainActivity extends AppCompatActivity implements TopFragment.OnFra
 
     @Override
     public void rotate(int direction) {
-        switch (direction) {
-            case 0:
-                gameBoardView.rotateLeft();
-                break;
-            case 1:
-                gameBoardView.rotate180();
-                break;
-            case 2:
-                gameBoardView.rotateRight();
-                break;
+        if (gameBoardView.isSafeToMove()) {
+            switch (direction) {
+                case 0:
+                    gameBoardView.rotateLeft();
+                    break;
+                case 1:
+                    gameBoardView.rotate180();
+                    break;
+                case 2:
+                    gameBoardView.rotateRight();
+                    break;
+            }
+            updatePlayer();
         }
-        updatePlayer();
+        updateStatus();
     }
 
     public void updatePlayer(){

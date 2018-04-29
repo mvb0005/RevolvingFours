@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,7 @@ public class TopFragment extends Fragment {
     private Button resetButton;
     private Spinner spin1;
     private Spinner spin2;
+    private TextView statusTextView;
 
     private View.OnClickListener resetListener = new View.OnClickListener() {
         @Override
@@ -88,6 +90,7 @@ public class TopFragment extends Fragment {
         spin2.setOnItemSelectedListener(spinListener);
         resetButton = view.findViewById(R.id.resetButton);
         resetButton.setOnClickListener(resetListener);
+        statusTextView = view.findViewById(R.id.statusTextView);
         return view;
     }
 
@@ -106,6 +109,21 @@ public class TopFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    public void updateStatus(int[] winner) {
+        Log.d("Test", String.valueOf(winner[0]) + " " + String.valueOf(winner[1]));
+        if (winner[0] + Math.abs(winner[1]) == 0){
+            statusTextView.setText("");
+        } else {
+            if (winner[0] == Math.abs(winner[1])){
+                statusTextView.setText(winner[0] + "   TIE   " + Math.abs(winner[1]));
+            } else if (winner[0] > Math.abs(winner[1])){
+                statusTextView.setText("Player 1 Wins");
+            } else {
+                statusTextView.setText("Player 2 Wins");
+            }
+        }
     }
 
     /**
