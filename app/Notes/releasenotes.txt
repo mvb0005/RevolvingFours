@@ -1,0 +1,14 @@
+Version 1.0.0 - Initial release
+
+Introducing Revolving Fours - Connect 4 with a twist!
+
+Main features of the application include:
+    - Intuitive "Connect 4" gameplay on a 7x7 board
+    - Ability to rotate the board instead of placing a piece
+    - Select between eight color options for either player
+    - Start a new game at any time with the click of a button
+    - Winner will be determined when one player has more "straights" than the other
+
+Note that screen orientation is fixed to portrait mode. Since the game is meant to be played
+between two players passing the device, and the main characteristics of the game involve rotating
+the board, allowing orientation changes alongside board rotations can make the game very confusing.
