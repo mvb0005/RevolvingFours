@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="edu.auburn.respectedprocess.revolvingfour.edu.auburn.eng.csse.comp3710.spring2018.respectedprocess.revolvingfour.SplashActivity">
+    tools:context="edu.auburn.eng.csse.comp3710.spring2018.respecttheprocess.activities.SplashActivity">
 
 
 

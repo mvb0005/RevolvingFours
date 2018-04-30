@@ -11,19 +11,19 @@
 
     <android.support.v4.widget.Space
         android:layout_width="match_parent"
-        android:layout_height="80dp"></android.support.v4.widget.Space>
+        android:layout_height="80dp"/>
 
     <ImageView
         android:id="@+id/logo"
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_gravity="center"
-        android:src="@drawable/gameboard_icon"></ImageView>
+        android:src="@drawable/gameboard_icon"/>
 
     <android.support.v4.widget.Space
         android:id="@+id/space"
         android:layout_width="match_parent"
-        android:layout_height="80dp"></android.support.v4.widget.Space>
+        android:layout_height="80dp"/>
 
     <TextView
         android:layout_width="wrap_content"
