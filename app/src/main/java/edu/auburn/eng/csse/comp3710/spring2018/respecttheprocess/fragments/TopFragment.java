@@ -187,10 +187,10 @@ public class TopFragment extends Fragment {
                 statusTextView.setText(winner[0] + "   TIE   " + Math.abs(winner[1]));
             } else if (winner[0] > Math.abs(winner[1])){
                 statusTextView.setText("Player 1 Wins");
-                //mListener.canMove(false);
+                mListener.canMove(false);
             } else {
                 statusTextView.setText("Player 2 Wins");
-                //mListener.canMove(false);
+                mListener.canMove(false);
             }
         }
     }
