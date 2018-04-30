@@ -4,68 +4,83 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/darker_gray"
     android:orientation="vertical"
-    android:background="#166"
-    tools:context="edu.auburn.respectedprocess.revolvingfour.edu.auburn.eng.csse.comp3710.spring2018.respectedprocess.revolvingfour.SplashActivity"
+    tools:context="edu.auburn.eng.csse.comp3710.spring2018.respecttheprocess.activities.SplashActivityrevolvingfour.SplashActivity"
     tools:showIn="@layout/activity_splash">
 
     <android.support.v4.widget.Space
         android:layout_width="match_parent"
-        android:layout_height="78dp">
-    </android.support.v4.widget.Space>
+        android:layout_height="80dp"></android.support.v4.widget.Space>
 
     <ImageView
         android:id="@+id/logo"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:layout_gravity="center"
-        android:layout_width="260dp"
-        android:layout_height="260dp"
-        android:src="@drawable/placeholder">
-    </ImageView>
+        android:src="@drawable/gameboard_icon"></ImageView>
+
+    <android.support.v4.widget.Space
+        android:id="@+id/space"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"></android.support.v4.widget.Space>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:fontFamily="sans-serif-medium"
         android:text="@string/splashtext1"
-        android:textSize="45sp"
         android:textColor="@color/Black"
-        android:fontFamily="sans-serif-medium"/>
+        android:textSize="45sp" />
+
     <android.support.v4.widget.Space
         android:layout_width="match_parent"
         android:layout_height="20dp" />
+
     <TextView
-        android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/Black"
-        android:text="@string/splashtext2"/>
-    <TextView
         android:layout_gravity="center"
+        android:textColor="@color/Black"
+        android:text="@string/splashtext2"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:textColor="@color/Black"
-        android:text="@string/splashtext3"/>
+        android:text="@string/splashtext3"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
     <android.support.v4.widget.Space
         android:layout_width="match_parent"
         android:layout_height="30dp" />
+
     <TextView
-        android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/Black"
-        android:text="@string/splashtext4"/>
-    <TextView
         android:layout_gravity="center"
+        android:text="@string/splashtext4"
+        android:textColor="@color/Black"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/Black"
-        android:text="@string/splashtext5"/>
-    <TextView
         android:layout_gravity="center"
+        android:text="@string/splashtext5"
+        android:textColor="@color/Black"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/splashtext6"
         android:textColor="@color/Black"
-        android:text="@string/splashtext6"/>
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
 
 
 </LinearLayout>

@@ -39,14 +39,15 @@ public class MainActivity extends AppCompatActivity implements TopFragment.OnFra
             if (event.getAction() == MotionEvent.ACTION_UP) {
                 if (event.getX() > gameBoardView.getX() && event.getX() < gameBoardView.getX() + gameBoardView.getWidth()) {
                     if (event.getY() > gameBoardView.getY() && event.getY() < gameBoardView.getY() + gameBoardView.getHeight()) {
-                        gameBoardView.newMove((int) (event.getX() - gameBoardView.getX()) / 200, player);
-                        updatePlayer();
+                        if(gameBoardView.newMove((int) (event.getX() - gameBoardView.getX()) / 200, player)){
+                            updatePlayer();
+                            updateStatus();
+                        }
                     }
                 }
 
             }
         }
-        updateStatus();
         return super.onTouchEvent(event);
 
     }

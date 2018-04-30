@@ -182,17 +182,15 @@ public class TopFragment extends Fragment {
         Log.d("Test", String.valueOf(winner[0]) + " " + String.valueOf(winner[1]));
         if (winner[0] + Math.abs(winner[1]) == 0){
             statusTextView.setText("");
-            mListener.canMove(true);
         } else {
             if (winner[0] == Math.abs(winner[1])){
                 statusTextView.setText(winner[0] + "   TIE   " + Math.abs(winner[1]));
-                mListener.canMove(true);
             } else if (winner[0] > Math.abs(winner[1])){
                 statusTextView.setText("Player 1 Wins");
-                mListener.canMove(false);
+                //mListener.canMove(false);
             } else {
                 statusTextView.setText("Player 2 Wins");
-                mListener.canMove(false);
+                //mListener.canMove(false);
             }
         }
     }

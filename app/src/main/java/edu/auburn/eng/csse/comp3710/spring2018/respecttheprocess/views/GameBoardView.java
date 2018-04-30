@@ -182,9 +182,8 @@ public class GameBoardView extends View {
         animator.start();
     }
 
-    public void newMove(int col, int player){
-        gameBoard.newMove(col, player);
-        invalidate();
+    public boolean newMove(int col, int player){
+        return gameBoard.newMove(col, player);
     }
 
     public int getColor1() {
